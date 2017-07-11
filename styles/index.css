@@ -10,3 +10,51 @@
 	max-height: 100px;
 	max-width: auto;
 }
+
+.book-icon {
+	width: 4vw;
+	height: auto;
+	max-height: 4vw;
+}
+.author-icon {
+	width: 5vw;
+	height: auto;
+	max-height: 5vw;
+}
+
+.author-button {
+	display: inline-flex;
+	flex-direction: row;
+	cursor: pointer;
+}
+.book-button {
+	display: inline-flex;
+	flex-direction: row;
+	cursor: pointer;
+}
+
+.book-template-description {
+	text-indent: 2em;
+}
+
+.book-template-options {
+	display: inline-flex;
+}
+
+.book-template-details-edit {
+	width: 50%;
+	height: auto;
+	text-align: center;
+}
+.book-template-details-remove {
+	width: 50%;
+	height: auto;
+	text-align: center;
+}
+
+.book-template-cover {
+	/*max-width: 10vw;
+	max-height: auto;*/
+	width: 100%;
+	height: auto;
+}
