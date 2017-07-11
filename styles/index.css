@@ -1,0 +1,12 @@
+.main-header {
+	display: inline-flex;
+	flex-direction: row;
+}
+
+.main-header > h3 {
+	margin-left: 3%;
+}
+.main-logo {
+	max-height: 100px;
+	max-width: auto;
+}
