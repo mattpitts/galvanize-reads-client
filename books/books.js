@@ -3,9 +3,9 @@ $(document).ready(() => {
 	getBooks(API_URL).then(books => {
 		books.forEach(book => {
 			console.log(book);
-			// if(book !== null) {
+			if(book !== null) {
 				renderBook(book);
-			// }
+			}
 		})
 	})
 });

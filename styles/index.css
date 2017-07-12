@@ -97,3 +97,20 @@ a {
 	align-items: center;
 	justify-content: center;
 }
+
+.book-authors-container > div {
+	display: flex;
+	flex-direction: row;
+	/*justify-content: center;*/
+	align-items: center;
+}
+
+.book-authors-container > div > i:hover {
+	font-size: 1.1em;
+	color: red;
+}
+
+.book-authors-container > div > p {
+	margin: 0 0 0 5px;
+	padding: 0;
+}
