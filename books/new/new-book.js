@@ -85,18 +85,25 @@ function isValidBook(book) {
 
 
 function createAssociations(id, authors) {
-	authors.forEach(authorId => {
+	for (var i = 0; i < authors.length; i++) {
 		let book_author = {
 			book_id: id,
-			author_id: authorId
+			author_id: authors[i].id
 		}
-		postAssociation(book_author);
+		postAssociation(book_author).then(response => {
+			if(i = authors.length-1) {
+				window.location.href = '../index.html'
+			}
+		}
+	}
+	authors.forEach(authorId => {
+
+
 	})
+
 }
 
 function postAssociation(book_author) {
 	let url = getUrl();
-	$.post(`${url}/books/authors`, book_author).then(res => {
-		console.log(res);
-	})
+	return $.post(`${url}/books/authors`, book_author)
 }

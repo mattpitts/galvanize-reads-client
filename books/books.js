@@ -11,13 +11,14 @@ $(document).ready(() => {
 
 
 function renderBook(book) {
-	console.log(book);
+	// console.log(book);
 	let context = {
 		cover_url: book.cover_url,
 		title: book.title,
 		author: [],
 		genre: book.genre,
-		description: book.description
+		description: book.description,
+		id: book.id
 	}
 	book.authors.forEach(author => {
 		context.author.push(`${author.first_name} ${author.last_name}`);

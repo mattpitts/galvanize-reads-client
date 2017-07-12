@@ -4,6 +4,7 @@ $(document).ready(() => {
 	getBook(API_URL, id).then(book => {
 		renderBook(book[0]);
 	});
+	initDeleteButton(API_URL, id);
 });
 
 
@@ -24,6 +25,21 @@ function renderBook(book) {
   	$('.books-main').append(html);
 }
 
+
 function getBook(url, id) {
 	return $.get(`${url}/books/${id}`)
+}
+
+
+function initDeleteButton(url, id) {
+	$('.delete-book-button-container').click(() => {
+		$.ajax({
+			url: `${url}/books/${id}`,
+			type: 'DELETE',
+			success: function(result) {
+				console.log("Book deleted");
+				window.location.href = "../index.html";
+			}
+		});
+	});
 }

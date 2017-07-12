@@ -90,3 +90,10 @@ a {
 .add-book-author-button:hover {
 	font-size: 2.6em;
 }
+
+.delete-book-button-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
