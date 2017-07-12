@@ -16,9 +16,11 @@ function renderBook(book) {
 		genre: book.genre,
 		description: book.description
 	}
-	book.authors.forEach(author => {
-		context.author.push(`${author.first_name} ${author.last_name}`);
-	});
+	if(book.authors[0] != null) {
+		book.authors.forEach(author => {
+			context.author.push(`${author.first_name} ${author.last_name}`);
+		});
+	}
   	const source = $("#book-template").html();
   	const template = Handlebars.compile(source);
   	const html = template(context);
@@ -38,7 +40,7 @@ function initDeleteButton(url, id) {
 			type: 'DELETE',
 			success: function(result) {
 				console.log("Book deleted");
-				window.location.href = "../index.html";
+				window.location.href = "/books/index.html";
 			}
 		});
 	});

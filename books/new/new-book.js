@@ -9,7 +9,7 @@ $(document).ready(() => {
 });
 
 function getAuthors(API_URL) {
-	return $.get(`${API_URL}/authors`)
+	return $.get(`${API_URL}/authors`);
 }
 
 
@@ -85,20 +85,18 @@ function isValidBook(book) {
 
 
 function createAssociations(id, authors) {
-	for (var i = 0; i < authors.length; i++) {
-		let book_author = {
-			book_id: id,
-			author_id: authors[i].id
-		}
-		postAssociation(book_author).then(response => {
-			if(i = authors.length-1) {
-				window.location.href = '../index.html'
+	Promise.all(
+		authors.map(author => {
+			let book_author = {
+				book_id: id,
+				author_id: author
 			}
-		}
-	}
-	authors.forEach(authorId => {
-
-
+			console.log(book_author);
+			return postAssociation(book_author);
+		})
+	).then(result => {
+		console.log(result);
+		window.location.href = '/books/index.html'
 	})
 
 }
