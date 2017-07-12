@@ -63,9 +63,30 @@ body {
 	font-size: .8em;
 }
 
+a {
+	color: inherit;
+	text-decoration: none;
+}
 .book-template-cover {
 	/*max-width: 10vw;
 	max-height: auto;*/
 	width: 100%;
 	height: auto;
+}
+
+.book-authors-container {
+	margin-top: 40px;
+	/*width: 28vw;*/
+	100%;
+	height: 75px;
+	overflow-y: scroll;
+}
+
+.add-book-author-button {
+	font-size: 2.5em;
+	cursor: pointer;
+}
+
+.add-book-author-button:hover {
+	font-size: 2.6em;
 }
