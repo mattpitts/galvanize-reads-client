@@ -5,12 +5,3 @@ function getUrl() {
 	}
 	return API_URL;
 }
-
-
-function getBooks(API_URL) {
-	$.get(`${API_URL}/books`).then(books => {
-		books.forEach(book => {
-			renderBook(book);
-		});
-	});
-}

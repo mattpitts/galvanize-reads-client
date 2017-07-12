@@ -1,17 +1,13 @@
 $(document).ready(() => {
 	const API_URL = getUrl();
-	getBooks(API_URL).then(books => {
-		books.forEach(book => {
-			if(book) {
-				renderBook(book);
-			}
-		})
-	})
+	let id = window.location.href.split('=')[1];
+	getBook(API_URL, id).then(book => {
+		renderBook(book[0]);
+	});
 });
 
 
 function renderBook(book) {
-	console.log(book);
 	let context = {
 		cover_url: book.cover_url,
 		title: book.title,
@@ -28,7 +24,6 @@ function renderBook(book) {
   	$('.books-main').append(html);
 }
 
-
-function getBooks(API_URL) {
-	return $.get(`${API_URL}/books`);
+function getBook(url, id) {
+	return $.get(`${url}/books/${id}`)
 }
