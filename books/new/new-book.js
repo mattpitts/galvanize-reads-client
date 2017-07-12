@@ -27,7 +27,6 @@ function updateSelect(authors) {
 function initAddAuthorButton($select) {
 	$('.add-book-author-button').click(() => {
 		let addedAuthor = $select.val().split('||');
-		// console.log($(`*[data-id="${addedAuthor[1]}"]`));
 		if($(`*[data-id="${addedAuthor[1]}"]`).html() != addedAuthor[0]) {
 			appendAuthor(addedAuthor);
 		}
@@ -43,11 +42,17 @@ function initFormSubmit() {
 	$('form').submit(event => {
 		event.preventDefault();
 		let newBook = getBookFormData();
-		console.log(newBook);
-		if(isValidBook(newBook)) {
-			postNewBook(newBook);
+		let authors = getSelectedAuthorIds();;
+		if(authors.length < 1) {
+			alert('Please add at least one author.');
+			return;
 		}
-	})
+		if(isValidBook(newBook)) {
+			postNewBook(newBook).then(book => {
+				createAssociations(book[0].id,authors)
+			});
+		}
+	});
 }
 
 
@@ -60,13 +65,38 @@ function getBookFormData() {
 	}
 }
 
+function getSelectedAuthorIds() {
+	let authors = [];
+	$('#book-authors').children('p').each(function(p) {
+		authors.push($(this).attr('data-id'));
+	});
+	return authors;
+}
+
+
 function postNewBook(book) {
 	let url = getUrl();
-	$.post(`${url}/books`, book).then(response => {
-		console.log(response);
-	});
+	return $.post(`${url}/books`, book)
 }
 
 function isValidBook(book) {
 	return true;
+}
+
+
+function createAssociations(id, authors) {
+	authors.forEach(authorId => {
+		let book_author = {
+			book_id: id,
+			author_id: authorId
+		}
+		postAssociation(book_author);
+	})
+}
+
+function postAssociation(book_author) {
+	let url = getUrl();
+	$.post(`${url}/books/authors`, book_author).then(res => {
+		console.log(res);
+	})
 }
