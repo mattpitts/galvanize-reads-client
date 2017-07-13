@@ -9,3 +9,46 @@ function getUrl() {
 function getId() {
 	return window.location.href.split('=')[1];
 }
+
+
+function validURL(str) {
+  var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+  if(!regex .test(str)) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function validBook(book) {
+	if(book.title.trim() == '') {
+		alert('Please enter a title');
+		return false;
+	}
+	if(book.genre.trim() == '') {
+		alert('Please enter a genre');
+		return false;
+	}
+	if(book.description.trim() == '') {
+		alert('Please enter a description');
+		return false;
+	}
+	return true;
+}
+
+
+function validAuthor(author) {
+	if(author.first_name.trim() == '') {
+		alert('Please enter a first name');
+		return false;
+	}
+	if(author.last_name.trim() == '') {
+		alert('Please enter a genre');
+		return false;
+	}
+	if(author.biography.trim() == '') {
+		alert('Please enter a description');
+		return false;
+	}
+	return true;
+}

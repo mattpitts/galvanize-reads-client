@@ -6,7 +6,11 @@ function initFormSubmit() {
 	$('form').submit(event => {
 		event.preventDefault();
 		let newAuthor = getAuthorFormData();
-		if(isValidAuthor(newAuthor)) {
+		if(newAuthor.portrait_url && !validURL(newAuthor.portrait_url)) {
+			alert('Please enter a valid URL');
+			return;
+		}
+		if(validAuthor(newAuthor)) {
 			postNewAuthor(newAuthor).then(author => {
 				console.log(author);
 				window.location.href = "/authors";

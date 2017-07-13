@@ -20,7 +20,7 @@ function updateSelect(authors) {
 			let authorName = `${author.first_name} ${author.last_name}`
 			$select.append($(`<option value="${authorName}||${author.id}">${authorName}</option>`))
 		}
-		
+
 	})
 	$select.material_select();
 	initAddAuthorButton($select);
@@ -54,18 +54,23 @@ function initFormSubmit() {
 	$('form').submit(event => {
 		event.preventDefault();
 		let newBook = getBookFormData();
-		let authors = getSelectedAuthorIds();;
-		if(authors.length < 1) {
-			alert('Please add at least one author.');
-			return;
-		}
-		if(isValidBook(newBook)) {
+		if(validBook(newBook)) {
+			let authors = getSelectedAuthorIds();;
+			if(authors.length < 1) {
+				alert('Please add at least one author.');
+				return;
+			}
+			if(newBook.cover_url && !validURL(newBook.cover_url)) {
+				alert('Please enter a valid URL');
+				return;
+			}
 			postNewBook(newBook).then(book => {
 				createAssociations(book[0].id,authors)
 			});
 		}
 	});
 }
+
 
 
 function getBookFormData() {

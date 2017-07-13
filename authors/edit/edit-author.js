@@ -70,11 +70,11 @@ function initFormSubmit(id) {
 		event.preventDefault();
 		let newAuthor = getAuthorFormData();
 		let books = getSelectedBookIds();;
-		// if(books.length < 1) {
-		// 	alert('Please add at least one author.');
-		// 	return;
-		// }
-		if(isValidAuthor(newAuthor)) {
+		if(newAuthor.portrait_url && !validURL(newAuthor.portrait_url)) {
+			alert('Please enter a valid URL');
+			return;
+		}
+		if(validAuthor(newAuthor)) {
 			updateAuthor(id, newAuthor).then(author => {
 				createAssociations(author[0].id,books)
 			});
