@@ -2,19 +2,22 @@ $(document).ready(() => {
 	const API_URL = getUrl();
 	let id = window.location.href.split('=')[1];
 	getBooks(API_URL, id).then(books => {
-		console.log(books);
-		books.forEach(book => {
-			// console.log(book);
-			if(book !== null) {
-				renderBook(book);
-			}
-		})
+		if(id) {
+			console.log(books);
+			renderBook(books);
+			$('.book-button').attr('href', '/books')
+		} else {
+			books.forEach(book => {
+				if(book !== null) {
+					renderBook(book);
+				}
+			})
+		}
 	});
 });
 
 
 function renderBook(book) {
-	// console.log(book);
 	if(!book.cover_url) {
 		book.cover_url = "https://placeholdit.co//i/250x250?bg=111111"
 	}

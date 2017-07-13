@@ -2,12 +2,16 @@ $(document).ready(() => {
 	const API_URL = getUrl();
 	let id = window.location.href.split('=')[1];
 	getAuthors(API_URL, id).then(authors => {
-		console.log(authors);
-		authors.forEach(author => {
-			if(author !== null) {
-				renderAuthor(author);
-			}
-		})
+		if(id) {
+			renderAuthor(authors);
+			$('.author-button').attr('href', '/authors')
+		} else {
+			authors.forEach(author => {
+				if(author !== null) {
+					renderAuthor(author);
+				}
+			})
+		}
 	});
 });
 
