@@ -9,7 +9,7 @@ function initFormSubmit() {
 		if(isValidAuthor(newAuthor)) {
 			postNewAuthor(newAuthor).then(author => {
 				console.log(author);
-				// window.location.href = "/authors";
+				window.location.href = "/authors";
 			});
 		}
 	});

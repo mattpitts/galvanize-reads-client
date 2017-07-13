@@ -2,10 +2,10 @@ $(document).ready(() => {
 	const API_URL = getUrl();
 	let id = window.location.href.split('=')[1];
 	getContent(API_URL,id).then(results => {
-		console.log(results);
+		console.log(results[1]);
 		updateSelect(results[1]);
-		updateValues(results[0][0]);
-		updateBookField(results[0][0].books, id);
+		updateValues(results[0][0][0]);
+		updateBookField(results[0][0][0].books, id);
 		initFormSubmit(id);
 	})
 });
@@ -102,10 +102,14 @@ function updateValues(author) {
 
 
 function updateBookField(books, author_id) {
+	console.log('books');
 	console.log(books);
-	books.forEach(book => {
-		appendBook([book.title, book.id], author_id);
-	});
+	if(books !== undefined) {
+		books.forEach(book => {
+			appendBook([book.title, book.id], author_id);
+		});
+	}
+
 }
 
 function getAuthorFormData() {

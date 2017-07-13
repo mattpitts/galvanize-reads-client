@@ -2,6 +2,7 @@ $(document).ready(() => {
 	const API_URL = getUrl();
 	let id = window.location.href.split('=')[1];
 	getBooks(API_URL, id).then(books => {
+		console.log(books);
 		books.forEach(book => {
 			// console.log(book);
 			if(book !== null) {

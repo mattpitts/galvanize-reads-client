@@ -2,7 +2,7 @@ $(document).ready(() => {
 	const API_URL = getUrl();
 	let id = window.location.href.split('=')[1];
 	getBook(API_URL, id).then(book => {
-		renderBook(book[0]);
+		renderBook(book);
 	});
 	initDeleteButton(API_URL, id);
 });

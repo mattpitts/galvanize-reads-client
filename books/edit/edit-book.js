@@ -2,9 +2,10 @@ $(document).ready(() => {
 	const API_URL = getUrl();
 	let id = window.location.href.split('=')[1];
 	getContent(API_URL,id).then(results => {
+		console.log(results);
 		updateSelect(results[1]);
-		updateValues(results[0][0]);
-		updateAuthorField(results[0][0].authors, id);
+		updateValues(results[0]);
+		updateAuthorField(results[0].authors, id);
 		initFormSubmit(id);
 	})
 });
@@ -47,8 +48,11 @@ function initAddAuthorButton($select) {
 	});
 }
 
-function appendAuthor(author, book_id) {
+function appendAuthor(author, book_id, inDB) {
 	let newAuthor = $(`<div><i class="fa fa-trash-o remove-add-author" aria-hidden="true"></i><p data-id="${author[1]}">${author[0]}</p></div>`);
+	if(inDB) {
+		newAuthor.attr('data-db', 'true');
+	}
 	$('#book-authors').append(newAuthor);
 	initRemoveButton(newAuthor, book_id);
 }
@@ -57,7 +61,9 @@ function appendAuthor(author, book_id) {
 function initRemoveButton(item, book_id) {
 	$(item).find('i').click(() => {
 		let author_id = $(item).find('p').attr('data-id');
-		removeAuthorFromBook(author_id, book_id);
+		if(item.attr('data-db')) {
+			removeAuthorFromBook(author_id, book_id);
+		}
 		item.remove();
 	});
 }
@@ -68,13 +74,17 @@ function initFormSubmit(id) {
 		event.preventDefault();
 		let newBook = getBookFormData();
 		let authors = getSelectedAuthorIds();;
-		if(authors.length < 1) {
-			alert('Please add at least one author.');
-			return;
-		}
+		// if(authors.length < 1) {
+		// 	alert('Please add at least one author.');
+		// 	return;
+		// }
+		console.log(authors);
 		if(isValidBook(newBook)) {
 			updateBook(id, newBook).then(book => {
-				createAssociations(book[0].id,authors)
+				if(authors) {
+					console.log('associations create');
+					createAssociations(book[0].id,authors);
+				}
 			});
 		}
 	});
@@ -82,6 +92,7 @@ function initFormSubmit(id) {
 
 
 function updateBook(id, book) {
+	console.log('put');
 	let url = getUrl();
 	return $.ajax({
 		url: `${url}/books/${id}`,
@@ -100,11 +111,15 @@ function updateValues(book) {
 
 
 function updateAuthorField(authors, book_id) {
-	authors.forEach(author => {
-		let name = `${author.first_name} ${author.last_name}`;
-		let id = author.id;
-		appendAuthor([name, id], book_id);
-	});
+	if(authors) {
+		let inDB = true;
+		authors.forEach(author => {
+			let name = `${author.first_name} ${author.last_name}`;
+			let id = author.id;
+			appendAuthor([name, id], book_id, inDB);
+		});
+	}
+
 }
 
 function getBookFormData() {
@@ -118,9 +133,12 @@ function getBookFormData() {
 
 function getSelectedAuthorIds() {
 	let authors = [];
-	$('#book-authors').find('div').children('p').each(function(p) {
-		authors.push($(this).attr('data-id'));
-	});
+	let container = $('#book-authors').find('div')
+	if(!container.attr('data-db')) {
+		container.children('p').each(function(p) {
+			authors.push($(this).attr('data-id'));
+		});
+	}
 	return authors;
 }
 
@@ -142,11 +160,13 @@ function createAssociations(id, authors) {
 				book_id: id,
 				author_id: author
 			}
-			console.log(book_author);
 			return postAssociation(book_author);
 		})
 	).then(result => {
 		console.log(result);
+		window.location.href = '/books'
+	}).catch(error => {
+		console.log(error);
 		window.location.href = '/books'
 	})
 }
