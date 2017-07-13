@@ -1,13 +1,14 @@
 $(document).ready(() => {
 	const API_URL = getUrl();
-	getBooks(API_URL).then(books => {
+	let id = window.location.href.split('=')[1];
+	getBooks(API_URL, id).then(books => {
 		books.forEach(book => {
 			console.log(book);
 			if(book !== null) {
 				renderBook(book);
 			}
 		})
-	})
+	});
 });
 
 
@@ -36,6 +37,10 @@ function renderBook(book) {
 }
 
 
-function getBooks(API_URL) {
-	return $.get(`${API_URL}/books`);
+function getBooks(API_URL, id) {
+	if(id) {
+		return $.get(`${API_URL}/books/${id}`);
+	} else {
+		return $.get(`${API_URL}/books`);
+	}
 }

@@ -114,3 +114,16 @@ a {
 	margin: 0 0 0 5px;
 	padding: 0;
 }
+
+.author-template-books-header {
+	font-size: 1.3em;
+}
+
+.library {
+	max-width: 48vw;
+	height: auto;
+}
+.author {
+	max-width: 48vw;
+	height: auto;
+}
