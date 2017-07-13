@@ -11,6 +11,7 @@ function initFormSubmit() {
 			return;
 		}
 		if(validAuthor(newAuthor)) {
+			console.log(newAuthor);
 			postNewAuthor(newAuthor).then(author => {
 				console.log(author);
 				window.location.href = "/authors";
