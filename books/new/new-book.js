@@ -16,8 +16,11 @@ function getAuthors(API_URL) {
 function updateSelect(authors) {
 	let $select = $('select')
 	authors.forEach(author => {
-		let authorName = `${author.first_name} ${author.last_name}`
-		$select.append($(`<option value="${authorName}||${author.id}">${authorName}</option>`))
+		if(author) {
+			let authorName = `${author.first_name} ${author.last_name}`
+			$select.append($(`<option value="${authorName}||${author.id}">${authorName}</option>`))
+		}
+		
 	})
 	$select.material_select();
 	initAddAuthorButton($select);
@@ -106,7 +109,7 @@ function createAssociations(id, authors) {
 		})
 	).then(result => {
 		console.log(result);
-		window.location.href = '/books/index.html'
+		window.location.href = '/books'
 	})
 
 }

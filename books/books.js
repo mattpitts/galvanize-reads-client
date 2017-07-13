@@ -3,7 +3,7 @@ $(document).ready(() => {
 	let id = window.location.href.split('=')[1];
 	getBooks(API_URL, id).then(books => {
 		books.forEach(book => {
-			console.log(book);
+			// console.log(book);
 			if(book !== null) {
 				renderBook(book);
 			}

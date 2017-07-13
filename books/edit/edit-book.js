@@ -147,7 +147,7 @@ function createAssociations(id, authors) {
 		})
 	).then(result => {
 		console.log(result);
-		window.location.href = '/books/index.html'
+		window.location.href = '/books'
 	})
 }
 

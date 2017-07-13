@@ -5,3 +5,7 @@ function getUrl() {
 	}
 	return API_URL;
 }
+
+function getId() {
+	return window.location.href.split('=')[1];
+}

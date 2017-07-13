@@ -127,3 +127,22 @@ a {
 	max-width: 48vw;
 	height: auto;
 }
+.author-books-container {
+	margin-top: 40px;
+	/*width: 28vw;*/
+	width: 100%;
+	height: 75px;
+	overflow-y: scroll;
+}
+
+.author-books-container > div {
+	display: flex;
+	flex-direction: row;
+	/*justify-content: center;*/
+	align-items: center;
+}
+
+.author-books-container > div > i:hover {
+	font-size: 1.1em;
+	color: red;
+}

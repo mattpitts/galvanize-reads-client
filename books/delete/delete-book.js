@@ -43,7 +43,7 @@ function initDeleteButton(url, id) {
 			type: 'DELETE',
 			success: function(result) {
 				console.log("Book deleted");
-				window.location.href = "/books/index.html";
+				window.location.href = "/books";
 			}
 		});
 	});
